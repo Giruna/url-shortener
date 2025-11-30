@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Mockery;
 use Mockery\MockInterface;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tests\TestCase;
 
@@ -24,7 +25,7 @@ class UrlShortenerTest extends TestCase
         $this->serviceMock = Mockery::mock(UrlShortenerService::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_create_a_short_url()
     {
         $longUrl = 'https://www.example.com/test/1234567890';
@@ -43,7 +44,7 @@ class UrlShortenerTest extends TestCase
         $this->assertEquals($longUrl, $entry->long_url);
     }
 
-    /** @test */
+    #[Test]
     public function it_redirects_to_the_long_url()
     {
         $longUrl = 'https://www.example.com/test-redirect';
@@ -66,7 +67,7 @@ class UrlShortenerTest extends TestCase
         $this->assertEquals($longUrl, $response->getTargetUrl());
     }
 
-    /** @test */
+    #[Test]
     public function it_fails_for_invalid_code()
     {
         $this->expectException(NotFoundHttpException::class);
@@ -82,7 +83,7 @@ class UrlShortenerTest extends TestCase
         }
     }
 
-    /** @test */
+    #[Test]
     public function it_fails_for_invalid_url_when_shortening()
     {
         $invalidUrl = 'invalid-url';
